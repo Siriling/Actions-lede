@@ -18,6 +18,8 @@ rm -rf ./feeds/packages/net/xray-core
 rm -rf ./feeds/luci/applications/luci-app-passwall
 rm -rf ./feeds/luci/applications/luci-app-passwall2
 
+#添加设备
+$GITHUB_WORKSPACE/scripts/add-device.sh
 
 #克隆插件
 git clone https://github.com/xiaorouji/openwrt-passwall-packages.git package/pwpage
