@@ -30,35 +30,39 @@ tar -xvf rtl8367b.tar.gz
 rm -f target/linux/rockchip/armv8/base-files/etc/board.d/02_network
 cp -f $GITHUB_WORKSPACE/patchs/nsy/02_network target/linux/rockchip/armv8/base-files/etc/board.d/02_network
 
+# 增加
+echo -e "\\ndefine Device/rk3568-nsy
+  DEVICE_VENDOR := NSY
+  SOC := rk3568
+  UBOOT_DEVICE_NAME := easepi-rk3568
+  IMAGE/sysupgrade.img.gz := boot-common | boot-script | pine64-img | gzip | append-metadata
+  DEVICE_PACKAGES := kmod-nvme kmod-scsi-core kmod-thermal kmod-switch-rtl8306 kmod-switch-rtl8366-smi kmod-switch-rtl8366rb kmod-switch-rtl8366s kmod-hwmon-pwmfan kmod-leds-pwm kmod-r8125 kmod-r8168 kmod-switch-rtl8367b swconfig kmod-swconfig
+endef
+TARGET_DEVICES += rk3568-nsy" >> target/linux/rockchip/image/armv8.mk
+
 # 增加nsy_g68-plus
 echo -e "\\ndefine Device/nsy_g68-plus
-\$(call Device/rk3568)
-  DEVICE_VENDOR := NSY
+\$(call Device/rk3568-nsy)
   DEVICE_MODEL := G68
-  DEVICE_DTS := rk3568-nsy-g68-plus
-  SUPPORTED_DEVICES += nsy,g68-plus
   DEVICE_PACKAGES := kmod-nvme kmod-scsi-core kmod-thermal kmod-switch-rtl8306 kmod-switch-rtl8366-smi kmod-switch-rtl8366rb kmod-switch-rtl8366s kmod-hwmon-pwmfan kmod-leds-pwm kmod-r8125 kmod-r8168 kmod-switch-rtl8367b swconfig kmod-swconfig
 endef
 TARGET_DEVICES += nsy_g68-plus" >> target/linux/rockchip/image/armv8.mk
 
 # 增加nsy_g16-plus
 echo -e "\\ndefine Device/nsy_g16-plus
-\$(call Device/rk3568)
-  DEVICE_VENDOR := NSY
+\$(call Device/rk3568-nsy)
   DEVICE_MODEL := G16
-  DEVICE_DTS := rk3568-nsy-g16-plus
-  SUPPORTED_DEVICES += nsy,g16-plus
   DEVICE_PACKAGES := kmod-nvme kmod-scsi-core kmod-thermal kmod-switch-rtl8306 kmod-switch-rtl8366-smi kmod-switch-rtl8366rb kmod-switch-rtl8366s kmod-hwmon-pwmfan kmod-leds-pwm kmod-r8125 kmod-r8168 kmod-switch-rtl8367b swconfig kmod-swconfig
 endef
 TARGET_DEVICES += nsy_g16-plus" >> target/linux/rockchip/image/armv8.mk
 
 # 增加bdy_g18-pro
 echo -e "\\ndefine Device/bdy_g18-pro
-\$(call Device/rk3568)
   DEVICE_VENDOR := BDY
   DEVICE_MODEL := G18
-  DEVICE_DTS := rk3568-bdy-g18-pro
-  SUPPORTED_DEVICES += bdy,g18-pro
+  SOC := rk3568
+  UBOOT_DEVICE_NAME := easepi-rk3568
+  IMAGE/sysupgrade.img.gz := boot-common | boot-script | pine64-img | gzip | append-metadata
   DEVICE_PACKAGES := kmod-nvme kmod-scsi-core kmod-thermal kmod-switch-rtl8306 kmod-switch-rtl8366-smi kmod-switch-rtl8366rb kmod-switch-rtl8366s kmod-hwmon-pwmfan kmod-leds-pwm kmod-r8125 kmod-r8168 kmod-switch-rtl8367b swconfig kmod-swconfig
 endef
 TARGET_DEVICES += bdy_g18-pro" >> target/linux/rockchip/image/armv8.mk
